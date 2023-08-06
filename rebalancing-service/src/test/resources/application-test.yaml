@@ -1,0 +1,4 @@
+fps:
+  api:
+    url: https://sample.com
+    batch-size: 1

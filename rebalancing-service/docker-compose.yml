@@ -1,0 +1,44 @@
+version: "3"
+services:
+  # APP
+  rebalancing-service:
+    build: ./
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:15432/rebalancing-service
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_PROFILES_ACTIVE=production
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - rebalancing_service_network
+  # PostgreSQL
+  db:
+    container_name: rebalancing_service_db
+    image: postgres:12.3-alpine
+    volumes:
+      - rebalancing_service_db:/var/lib/postgresql3/data_travel
+    expose:
+      - 15432
+    ports:
+      - 15432:15432
+    command:
+      -p 15432
+    environment:
+      - POSTGRES_DB=rebalancing-service
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - rebalancing_service_network
+volumes:
+  rebalancing_service_db:
+networks:
+  rebalancing_service_network:
+    driver: bridge

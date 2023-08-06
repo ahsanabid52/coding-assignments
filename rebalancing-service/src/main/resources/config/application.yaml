@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+info:
+  app:
+    name: ${spring.application.name}
+    java:
+      version: ${java.version}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: shutdown
+        include: health, info, metrics, mappings, loggers
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  application:
+    name: rebalancing-service
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+  datasource:
+    url: jdbc:postgresql://localhost:15432/rebalancing-service
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      max-idle: 2
+      max-active: 10
+      test-on-borrow: true
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    show-sql: false
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    table: rebalancing_schema_version
+
+
+fps:
+  api:
+    url: https://4da9a821-7c78-4757-8aa9-ac8f6e3419ad.mock.pstmn.io
+    batch-size: 3

@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "2d36ffe8-403e-46dc-89c5-3d6ade0e0e4f",
+		"name": "Vanguard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Load Daily Customers and Strategies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/load/daily/customers-strategies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"load",
+						"daily",
+						"customers-strategies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customers/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customers",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Strategies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/strategies/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"strategies",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Strategies For A Specific Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customer/2/strategies/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customer",
+						"2",
+						"strategies",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Select Strategy For A Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customer/2/strategy/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customer",
+						"2",
+						"strategy",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Portfolio For A Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customer/2/portfolio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customer",
+						"2",
+						"portfolio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Trades for Rebalancing Customer Portfolio",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customer/2/portfolio/trades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customer",
+						"2",
+						"portfolio",
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Execute Trades for Rebalancing Customers Portfolio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customers\": [\r\n        \"2\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/re-balancing/customers/portfolio/trades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"re-balancing",
+						"customers",
+						"portfolio",
+						"trades"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
