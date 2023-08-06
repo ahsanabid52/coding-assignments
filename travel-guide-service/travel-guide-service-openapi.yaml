@@ -1,0 +1,249 @@
+openapi: 3.0.1
+info:
+  title: Travel Guide Service API
+  description: Travel Guide Service API is case study which is implemented for the coding challenge of element.
+  version: 1.0.0
+servers:
+  - url: "http://localhost:8080/"
+tags:
+  - name: get all hiking trails
+    description: Gets all hiking trails available
+  - name: get specific hike trail
+    description: Gets the specific hike trail by hike id
+  - name: book a selected hike trail
+    description: Books a selected hike trail for hikers
+  - name: view a booking
+    description: Gets a booking by the booking id
+  - name: view all bookings
+    description: Gets all the bookings
+  - name: cancels a booking
+    description: Cancels a booking by id
+paths:
+  /api/trails/all:
+    get:
+      tags:
+        - get all hike trails
+      operationId: getAllTrails
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/HikeTrailsDto"
+  /api/trails/{id}:
+    get:
+      tags:
+        - get hike trail
+      operationId: getSpecificHikeTrail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/HikeTrailsDto"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/booking:
+    post:
+      tags:
+        - book a hike
+      operationId: createBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDto'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/booking/{id}:
+    get:
+      tags:
+        - get a booking
+      operationId: viewBooking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/BookingDto"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/booking/all:
+    get:
+      tags:
+        - get all bookings
+      operationId: viewAllBookings
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AllBookingDto"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/booking/cancel/{id}:
+    post:
+      tags:
+        - cancels a booking
+      operationId: cancelBooking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    HikeTrailsDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        startAt:
+          type: string
+        endAt:
+          type: string
+        minimumAge:
+          type: integer
+        maximumAge:
+          type: integer
+        unitPrice:
+          type: number
+    BookingRequest:
+      type: object
+      properties:
+        hikeTrailId:
+          type: string
+        hikers:
+          $ref: '#/components/schemas/AllHikers'
+    AllHikers:
+      type: array
+      items:
+        $ref: '#/components/schemas/HikerRequest'
+    AllBookingDto:
+      type: array
+      items:
+        $ref: '#/components/schemas/BookingDto'
+    HikerRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        phoneNumber:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - age
+        - phoneNumber
+    BookingDto:
+      type: object
+      properties:
+        id:
+         type: string
+        hikers:
+          $ref: '#/components/schemas/AllHikers'
+        hikeTrail:
+          $ref: '#/components/schemas/HikeTrailsDto'
+        createdAt:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Http Status Code
+        error:
+          type: string
+          description: HTTP Status Description
+        message:
+          type: string
+          description: Error message
+        timestamp:
+          type: string
+          format: date-time

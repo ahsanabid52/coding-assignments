@@ -1,0 +1,10 @@
+checkout
+add soap 5
+bill
+offer buy_2_get_1_free soap
+bill
+offer buy_1_get_half_off soap
+bill
+add soap 1
+bill
+checkout

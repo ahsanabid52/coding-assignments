@@ -1,0 +1,12 @@
+empty cart
+added soap 5
+added bread 1
+subtotal:52.50, discount:0.00, total:52.50
+offer added
+subtotal:52.50, discount:10.00, total:42.50
+added soap 1
+subtotal:62.50, discount:20.00, total:42.50
+offer added
+added bread 1
+subtotal:65.00, discount:21.25, total:43.75
+done
